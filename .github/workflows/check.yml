@@ -2,12 +2,10 @@ name: CI
 
 on:
   schedule:
-    - cron: '0 0 * * *'
-
+    - cron: '* * * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Run check version TorrServer
@@ -16,6 +14,7 @@ jobs:
         new_version=$(curl -s "https://github.com/YouROK/TorrServer/releases/latest" | sed 's#.*tag/\(.*\)\".*#\1#')
         [[ "$old_version" == "$new_version" ]] && echo $old_version && exit || sed -i "s/$old_version/$new_version/" README.md
     - name: Commit files
+      if: ${{ "$old_version" != "$new_version" }}
       run: |
         git config --local user.email "mailcreio@gmail.com"
         git config --local user.name "creio"
