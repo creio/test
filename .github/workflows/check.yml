@@ -12,8 +12,10 @@ jobs:
       run: |
         old_version=$(cat README.md | grep Version | awk '{print $2}')
         new_version=$(curl -s "https://github.com/YouROK/TorrServer/releases/latest" | sed 's#.*tag/\(.*\)\".*#\1#')
-        echo "action_state=red" >> $GITHUB_ENV
+        echo "old_version=$old_version" >> $GITHUB_ENV
+        echo "new_version=$new_version" >> $GITHUB_ENV
         [[ "$old_version" == "$new_version" ]] && echo $old_version && exit || sed -i "s/$old_version/$new_version/" README.md
     - name: Commit files
       run: |
-        echo "${{ env.action_state }}"
+        echo "${{ env.old_version }}"
+        echo "${{ env.new_version }}"
