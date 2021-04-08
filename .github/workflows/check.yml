@@ -16,6 +16,14 @@ jobs:
         echo "new_version=$new_version" >> $GITHUB_ENV
         [[ "$old_version" == "$new_version" ]] && echo $old_version && exit || sed -i "s/$old_version/$new_version/" README.md
     - name: Commit files
+      if: ${{ env.old_version != env.new_version }}
       run: |
-        echo "${{ env.old_version }}"
-        echo "${{ env.new_version }}"
+        git config --local user.email "mailcreio@gmail.com"
+        git config --local user.name "creio"
+        git add .
+        git commit -m "Add changes" -a
+    - name: Push changes
+      if: ${{ env.old_version != env.new_version }}
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
