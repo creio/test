@@ -21,6 +21,7 @@ jobs:
         git add .
         git commit -m "Add changes" -a
     - name: Push changes
+      if: ${{ "$old_version" != "$new_version" }}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
