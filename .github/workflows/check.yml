@@ -18,8 +18,8 @@ jobs:
     - name: Commit files
       if: ${{ env.old_version != env.new_version }}
       run: |
-        git config --local user.email "mailcreio@gmail.com"
-        git config --local user.name "creio"
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git add .
         git commit -am "$(date +%d.%m.%Y) Update $new_version"
         git push
