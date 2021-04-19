@@ -27,6 +27,8 @@ jobs:
       - name: Restore cache
         id: cache
         uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-ipfs-deploy
       - name: Install ipfs-deploy
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install -g ipfs-deploy
