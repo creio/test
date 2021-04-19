@@ -2,7 +2,7 @@ name: IPFS Deploy
 on:
   push:
     branches:
-      - master
+      - main
   repository_dispatch:
     types: deploy
 
