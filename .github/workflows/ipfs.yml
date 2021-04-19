@@ -12,6 +12,9 @@ jobs:
       id: upload
       with:
         path: ./
+        protocol: https
+        timeout: 60000
+        verbose: true
     - name: Up dns
       env:
         ipfs_hash: ${{ steps.upload.outputs.hash }}
