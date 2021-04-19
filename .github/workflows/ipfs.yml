@@ -50,13 +50,17 @@ jobs:
         with:
           name: public
           path: public
-      - name: Run ipfs-deploy,
+      - name: Run ipfs-deploy
         run: |
           [[ -f public/ipfshash ]] || touch public/ipfshash
           old_ipfs_hash=$(cat public/ipfshash)
           ipfs-deploy -C -O -p infura public > public/ipfshash
           new_ipfs_hash=$(cat public/ipfshash)
-          [[ "$old_ipfs_hash" == "$new_ipfs_hash" ]] && echo $old_ipfs_hash && exit
+          echo "old_ipfs_hash=$old_ipfs_hash" >> $GITHUB_ENV
+          echo "new_ipfs_hash=$new_ipfs_hash" >> $GITHUB_ENV
+      - name: Run netlify dns
+        if: ${{ env.old_ipfs_hash != env.new_ipfs_hash }}
+        run: |
           bash public/ndns.sh $new_ipfs_hash $NETLIFY_KEY
 
   delete-artifacts:
