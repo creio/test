@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Run check version TorrServer
       run: |
         old_version=$(cat README.md | grep Version | awk '{print $2}')
@@ -21,9 +21,5 @@ jobs:
         git config --local user.email "mailcreio@gmail.com"
         git config --local user.name "creio"
         git add .
-        git commit -m "Add changes" -a
-    - name: Push changes
-      if: ${{ env.old_version != env.new_version }}
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        git commit -am "V $new_version"
+        git push
