@@ -21,5 +21,5 @@ jobs:
         git config --local user.email "mailcreio@gmail.com"
         git config --local user.name "creio"
         git add .
-        git commit -am "V $new_version"
+        git commit -am "$(date +%d.%m.%Y) Update $new_version"
         git push
