@@ -57,7 +57,7 @@ jobs:
           ipfs-deploy -C -O -p infura public > public/ipfshash
           new_ipfs_hash=$(cat public/ipfshash)
           [[ "$old_ipfs_hash" == "$new_ipfs_hash" ]] && echo $old_ipfs_hash && exit
-          sh public/ndns.sh $new_ipfs_hash $NETLIFY_KEY
+          bash public/ndns.sh $new_ipfs_hash $NETLIFY_KEY
 
   delete-artifacts:
     runs-on: ubuntu-latest

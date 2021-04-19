@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Fork
 # Gist: https://gist.github.com/skylerwlewis/ba052db5fe26424255674931d43fc030
