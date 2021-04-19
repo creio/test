@@ -1,21 +1,12 @@
 #!/usr/bin/env bash
-#
 # Fork
 # Gist: https://gist.github.com/skylerwlewis/ba052db5fe26424255674931d43fc030
 #
 # Usage:
-# ndns.sh <ACCESS_TOKEN> <DOMAIN> <SUBDOMAIN> <TTL>
+# ndns.sh <IPFS_HASH> <ACCESS_TOKEN>
 #
 # Example:
-# ndns.sh aCcEsStOKeN example.com local 300
-
-
-# if [ "$#" -ne 4 ]; then
-#     echo "Wrong number of parameters passed"
-#     echo "Usage:"
-#     echo "$0 <ACCESS_TOKEN> <DOMAIN> <SUBDOMAIN> <TTL>"
-#     exit
-# fi
+# ndns.sh QmdykiCNvE2vTSTmy5dmBf8 aCcEsStOKeN
 
 IPFS_HASH="$1"
 ACCESS_TOKEN="$2"
