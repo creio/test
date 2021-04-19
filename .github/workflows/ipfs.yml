@@ -23,7 +23,6 @@ jobs:
     needs: build
     env:
       NPM_PACKAGES: .npm_packages
-      IPFS_DEPLOY_VERSION: 8.0.1
     steps:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.4
@@ -41,10 +40,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/${{ env.NPM_PACKAGES }}
-          key: ${{ runner.os }}-ipfs-deploy-${{ env.IPFS_DEPLOY_VERSION }}
+          key: ${{ runner.os }}-ipfs-deploy
       - name: Install ipfs-deploy
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install -g ipfs-deploy@${{ env.IPFS_DEPLOY_VERSION }}
+        run: npm install -g ipfs-deploy
       - name: Download saved site
         uses: actions/download-artifact@v2
         with:
