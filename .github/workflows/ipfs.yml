@@ -54,6 +54,7 @@ jobs:
           ipfs_hash=$(ipfs-deploy -C -O -p infura public)
           echo
           echo $ipfs_hash
+          curl -V
 
   delete-artifacts:
     runs-on: ubuntu-latest
