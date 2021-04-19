@@ -21,13 +21,25 @@ jobs:
   deploy-ipfs:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      NPM_PACKAGES: .npm_packages
     steps:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.4
+      - name: Setup non-root `npm install -g`
+        run: |
+          mkdir ~/$NPM_PACKAGES
+          npm config set prefix ~/$NPM_PACKAGES
+      - name: Update PATH
+        uses: myci-actions/export-env-var@1
+        with:
+          name: PATH
+          value: $PATH:$HOME/$NPM_PACKAGES/bin
       - name: Restore cache
         id: cache
         uses: actions/cache@v2
         with:
+          path: ~/${{ env.NPM_PACKAGES }}
           key: ${{ runner.os }}-ipfs-deploy
       - name: Install ipfs-deploy
         if: steps.cache.outputs.cache-hit != 'true'
