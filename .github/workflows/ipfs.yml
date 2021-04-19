@@ -23,6 +23,7 @@ jobs:
     needs: build
     env:
       NPM_PACKAGES: .npm_packages
+      NETLIFY_KEY: ${{secrets.NETLIFY_API_KEY}}
     steps:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.4
@@ -49,11 +50,14 @@ jobs:
         with:
           name: public
           path: public
-      - name: Run ipfs-deploy
+      - name: Run ipfs-deploy,
         run: |
-          ipfs_hash=$(ipfs-deploy -C -O -p infura public)
-          echo
-          echo $NPM_PACKAGES
+          [[ -f ipfshash ]] || touch ipfshash
+          old_ipfs_hash=$(cat ipfshash)
+          ipfs-deploy -C -O -p infura public > ipfshash
+          new_ipfs_hash=$(cat ipfshash)
+          [[ "$old_ipfs_hash" == "$new_ipfs_hash" ]] && echo $old_ipfs_hash && exit
+          sh ndns.sh $new_ipfs_hash $NETLIFY_KEY
 
   delete-artifacts:
     runs-on: ubuntu-latest
