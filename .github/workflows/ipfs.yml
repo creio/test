@@ -50,7 +50,10 @@ jobs:
           name: public
           path: public
       - name: Run ipfs-deploy
-        run: ipfs-deploy -C -O -p infura public
+        run: |
+          ipfs_hash=$(ipfs-deploy -C -O -p infura public)
+          echo
+          echo $ipfs_hash
 
   delete-artifacts:
     runs-on: ubuntu-latest
