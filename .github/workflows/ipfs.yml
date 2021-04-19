@@ -52,15 +52,12 @@ jobs:
           path: public
       - name: Run ipfs-deploy,
         run: |
-          [[ -f ipfshash ]] || touch ipfshash
-          old_ipfs_hash=$(cat ipfshash)
-          ipfs-deploy -C -O -p infura public > ipfshash
-          new_ipfs_hash=$(cat ipfshash)
+          [[ -f public/ipfshash ]] || touch public/ipfshash
+          old_ipfs_hash=$(cat public/ipfshash)
+          ipfs-deploy -C -O -p infura public > public/ipfshash
+          new_ipfs_hash=$(cat public/ipfshash)
           [[ "$old_ipfs_hash" == "$new_ipfs_hash" ]] && echo $old_ipfs_hash && exit
-          echo $PWD
-          echo
-          ls -la
-          # sh ndns.sh $new_ipfs_hash $NETLIFY_KEY
+          sh public/ndns.sh $new_ipfs_hash $NETLIFY_KEY
 
   delete-artifacts:
     runs-on: ubuntu-latest
