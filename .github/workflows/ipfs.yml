@@ -2,14 +2,13 @@ name: CI
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: ubuntu-latest
-    
+    runs-on: ubuntu-latest    
     steps:
     - uses: actions/checkout@v2
     
     - name: Upload to IPFS
       uses: aquiladev/ipfs-action@v1
-      id: upload
+      id: ipfs
       with:
         path: ./
         protocol: https
@@ -17,7 +16,7 @@ jobs:
         verbose: true
     - name: Up dns
       env:
-        ipfs_hash: ${{ steps.upload.outputs.hash }}
+        ipfs_hash: ${{ steps.ipfs.outputs.hash }}
         USERNAME: github-actions[bot]
       run: |
         old_version=$(cat README.md | grep Version | awk '{print $2}')
