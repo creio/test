@@ -53,8 +53,7 @@ jobs:
         run: |
           ipfs_hash=$(ipfs-deploy -C -O -p infura public)
           echo
-          echo $ipfs_hash
-          curl -V
+          echo $NPM_PACKAGES
 
   delete-artifacts:
     runs-on: ubuntu-latest
