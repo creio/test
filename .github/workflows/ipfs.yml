@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - uses: actions/checkout@v2
+    
     - name: Upload to IPFS
       uses: aquiladev/ipfs-action@v0.1.2-alpha
       id: upload
