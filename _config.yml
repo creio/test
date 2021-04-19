@@ -8,3 +8,15 @@ readme_index:
   enabled:          true
   remove_originals: false
   with_frontmatter: false
+
+exclude:
+  - "ipfshash"
+  - "ndns.sh"
+  - "Gemfile"
+  - "Gemfile.lock"
+  # - "README.md"
+  # - "package.json"
+  # - "package-lock.json"
+  # - "LICENSE.txt"
+  # - "lib/"
+  # - "_compress_images_cache.yml"
