@@ -71,7 +71,7 @@ jobs:
       - name: Run ipfs-deploy
         run: |
           old_ipfs_hash=$(bash public/ndns.sh $NETLIFY_KEY)
-          new_ipfs_hash=$(ipfs-deploy -C -O -p infura public/_site)
+          new_ipfs_hash=$(ipfs-deploy -C -O -u infura -p infura public/_site)
           echo "old_ipfs_hash=$old_ipfs_hash" >> $GITHUB_ENV
           echo "new_ipfs_hash=$new_ipfs_hash" >> $GITHUB_ENV
       - name: Run netlify dns
