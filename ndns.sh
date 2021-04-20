@@ -8,15 +8,14 @@
 # Example:
 # ndns.sh QmdykiCNvE2vTSTmy5dmBf8 aCcEsStOKeN
 
-IPFS_HASH="$1"
-ACCESS_TOKEN="$2"
+ACCESS_TOKEN="${1:-$NETLIFY_TOKEN}"
+IPFS_HASH="$2"
 DOMAIN="ctlos.ru"
 SUBDOMAIN="test"
 TTL="300"
 
 NETLIFY_API="https://api.netlify.com/api/v1"
 CNAME_VALUE="dnslink=/ipfs/$IPFS_HASH"
-echo "Current external IP is $CNAME_VALUE"
 
 HOSTNAME="_dnslink.$SUBDOMAIN.$DOMAIN"
 
@@ -25,6 +24,15 @@ ZONE_ID=$(echo $DNS_ZONES_RESPONSE | jq ".[]  | select(.name == \"$DOMAIN\") | .
 DNS_RECORDS_RESPONSE=$(curl -s "$NETLIFY_API/dns_zones/$ZONE_ID/dns_records?access_token=$ACCESS_TOKEN" --header "Content-Type:application/json")
 RECORD=$(echo $DNS_RECORDS_RESPONSE | jq ".[]  | select(.hostname == \"$HOSTNAME\")" --raw-output)
 RECORD_VALUE=$(echo $RECORD | jq ".value" --raw-output)
+
+if [[ "$#" -ne 2 ]]; then
+  # echo "$RECORD_VALUE"
+  echo ${RECORD_VALUE##*/}
+  exit
+else
+  echo
+fi
+
 echo "Current $HOSTNAME value is $RECORD_VALUE"
 
 if [[ "$RECORD_VALUE" != "$CNAME_VALUE" ]]; then

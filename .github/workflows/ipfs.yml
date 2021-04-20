@@ -33,7 +33,6 @@ jobs:
           name: public
           path: |
             _site
-            ipfshash
             ndns.sh
 
   deploy-ipfs:
@@ -70,16 +69,14 @@ jobs:
           path: public
       - name: Run ipfs-deploy
         run: |
-          [[ -f public/ipfshash ]] || touch public/ipfshash
-          old_ipfs_hash=$(cat public/ipfshash)
-          ipfs-deploy -C -O -p infura public/_site > public/ipfshash
-          new_ipfs_hash=$(cat public/ipfshash)
+          old_ipfs_hash=$(bash public/ndns.sh $NETLIFY_KEY)
+          new_ipfs_hash=$(ipfs-deploy -C -O -p infura public/_site)
           echo "old_ipfs_hash=$old_ipfs_hash" >> $GITHUB_ENV
           echo "new_ipfs_hash=$new_ipfs_hash" >> $GITHUB_ENV
       - name: Run netlify dns
         if: ${{ env.old_ipfs_hash != env.new_ipfs_hash }}
         run: |
-          bash public/ndns.sh $new_ipfs_hash $NETLIFY_KEY
+          bash public/ndns.sh $NETLIFY_KEY $new_ipfs_hash
 
   delete-artifacts:
     runs-on: ubuntu-latest
