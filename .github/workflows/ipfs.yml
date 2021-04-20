@@ -69,10 +69,12 @@ jobs:
           path: public
       - name: Run ipfs-deploy
         run: |
+          cat public/ipfshash
+          echo
           [[ -f public/ipfshash ]] || touch public/ipfshash
           old_ipfs_hash=$(cat public/ipfshash)
           cat public/ipfshash
-          ls cat public
+          ls public
           ipfs-deploy -C -O -p infura public > public/ipfshash
           new_ipfs_hash=$(cat public/ipfshash)
           echo "old_ipfs_hash=$old_ipfs_hash" >> $GITHUB_ENV
