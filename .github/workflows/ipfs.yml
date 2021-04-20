@@ -21,13 +21,13 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
-      - name: Build & Deploy to GitHub Pages
+      - name: Build & Deploy GitHub Pages
         uses: creio/jekyll-actions@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-      - name: Save built site for deployment
+      - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: public
