@@ -1,3 +1,4 @@
+repository: creio/test
 theme: jekyll-theme-cayman
 # theme: jekyll-theme-architect
 
@@ -14,7 +15,7 @@ exclude:
   - "ndns.sh"
   - "Gemfile"
   - "Gemfile.lock"
-  - "vendor/"
+  - "vendor"
   # - "README.md"
   # - "package.json"
   # - "package-lock.json"
