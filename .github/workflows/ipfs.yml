@@ -62,7 +62,7 @@ jobs:
       - name: Install ipfs-deploy
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install -g ipfs-deploy
-      - name: Download saved site
+      - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: public
@@ -71,6 +71,8 @@ jobs:
         run: |
           [[ -f public/ipfshash ]] || touch public/ipfshash
           old_ipfs_hash=$(cat public/ipfshash)
+          cat public/ipfshash
+          ls cat public
           ipfs-deploy -C -O -p infura public > public/ipfshash
           new_ipfs_hash=$(cat public/ipfshash)
           echo "old_ipfs_hash=$old_ipfs_hash" >> $GITHUB_ENV
