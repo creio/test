@@ -20,9 +20,12 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gems-
     - name: Build & Deploy to GitHub Pages
-      uses: helaili/jekyll-action@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+      uses: joshlarsen/jekyll4-deploy-gh-pages@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+        GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+        JEKYLL_DESTINATION: _site
     - name: Save built site for deployment
       uses: actions/upload-artifact@v2
       with:
@@ -68,7 +71,7 @@ jobs:
         run: |
           [[ -f public/ipfshash ]] || touch public/ipfshash
           old_ipfs_hash=$(cat public/ipfshash)
-          ipfs-deploy -C -O -p infura public > public/ipfshash
+          ipfs-deploy -C -O -p infura public/_site > public/ipfshash
           new_ipfs_hash=$(cat public/ipfshash)
           echo "old_ipfs_hash=$old_ipfs_hash" >> $GITHUB_ENV
           echo "new_ipfs_hash=$new_ipfs_hash" >> $GITHUB_ENV
