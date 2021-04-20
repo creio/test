@@ -28,7 +28,7 @@ jobs:
           target_branch: 'gh-pages'
       - name: Check
         run: |
-          ls
+          ls build
       - name: Save built site for deployment
         uses: actions/upload-artifact@v2
         with:
