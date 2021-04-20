@@ -20,11 +20,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gems-
     - name: Build & Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: helaili/jekyll-action@v2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
-        enable_jekyll: true
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Save built site for deployment
       uses: actions/upload-artifact@v2
       with:
