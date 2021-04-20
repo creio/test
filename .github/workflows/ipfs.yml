@@ -43,7 +43,7 @@ jobs:
       IPFS_DEPLOY_VERSION: 8.0.1
       NETLIFY_KEY: ${{secrets.NETLIFY_API_KEY}}
     steps:
-      - name: Setup Node.js environment
+      - name: Setup Node.js env
         uses: actions/setup-node@v2.1.4
       - name: Setup non-root `npm install -g`
         run: |
