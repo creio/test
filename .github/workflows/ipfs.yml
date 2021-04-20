@@ -40,6 +40,7 @@ jobs:
     needs: build
     env:
       NPM_PACKAGES: .npm_packages
+      IPFS_DEPLOY_VERSION: 8.0.1
       NETLIFY_KEY: ${{secrets.NETLIFY_API_KEY}}
     steps:
       - name: Setup Node.js environment
@@ -58,10 +59,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/${{ env.NPM_PACKAGES }}
-          key: ${{ runner.os }}-ipfs-deploy
+          key: ${{ runner.os }}-ipfs-deploy-${{ env.IPFS_DEPLOY_VERSION }}
       - name: Install ipfs-deploy
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install -g ipfs-deploy
+        run: npm install -g ipfs-deploy@${{ env.IPFS_DEPLOY_VERSION }}
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
