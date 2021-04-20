@@ -20,9 +20,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gems-
     - name: Build & Deploy to GitHub Pages
-      - uses: helaili/jekyll-action@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      uses: helaili/jekyll-action@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Save built site for deployment
       uses: actions/upload-artifact@v2
       with:
