@@ -20,12 +20,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gems-
     - name: Build & Deploy to GitHub Pages
-      uses: joshlarsen/jekyll4-deploy-gh-pages@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
-        GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-        JEKYLL_DESTINATION: _site
+      - uses: helaili/jekyll-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
     - name: Save built site for deployment
       uses: actions/upload-artifact@v2
       with:
