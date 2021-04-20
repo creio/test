@@ -12,7 +12,7 @@ ACCESS_TOKEN="${1:-$NETLIFY_TOKEN}"
 IPFS_HASH="$2"
 DOMAIN="ctlos.ru"
 SUBDOMAIN="test"
-TTL="300"
+TTL="60"
 
 NETLIFY_API="https://api.netlify.com/api/v1"
 CNAME_VALUE="dnslink=/ipfs/$IPFS_HASH"
