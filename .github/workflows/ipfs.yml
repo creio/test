@@ -26,15 +26,12 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           target_branch: 'gh-pages'
-      - name: Check
-        run: |
-          ls build
       - name: Save built site for deployment
         uses: actions/upload-artifact@v2
         with:
           name: public
           path: |
-            _site
+            build
             ipfshash
             ndns.sh
 
@@ -74,7 +71,7 @@ jobs:
         run: |
           [[ -f public/ipfshash ]] || touch public/ipfshash
           old_ipfs_hash=$(cat public/ipfshash)
-          ipfs-deploy -C -O -p infura public > public/ipfshash
+          ipfs-deploy -C -O -p infura public/build > public/ipfshash
           new_ipfs_hash=$(cat public/ipfshash)
           echo "old_ipfs_hash=$old_ipfs_hash" >> $GITHUB_ENV
           echo "new_ipfs_hash=$new_ipfs_hash" >> $GITHUB_ENV
