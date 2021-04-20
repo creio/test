@@ -27,13 +27,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-          JEKYLL_DESTINATION: build
       - name: Save built site for deployment
         uses: actions/upload-artifact@v2
         with:
           name: public
           path: |
-            build
+            _site
             ipfshash
             ndns.sh
 
@@ -73,7 +72,7 @@ jobs:
         run: |
           [[ -f public/ipfshash ]] || touch public/ipfshash
           old_ipfs_hash=$(cat public/ipfshash)
-          ipfs-deploy -C -O -p infura public/build > public/ipfshash
+          ipfs-deploy -C -O -p infura public/_site > public/ipfshash
           new_ipfs_hash=$(cat public/ipfshash)
           echo "old_ipfs_hash=$old_ipfs_hash" >> $GITHUB_ENV
           echo "new_ipfs_hash=$new_ipfs_hash" >> $GITHUB_ENV
