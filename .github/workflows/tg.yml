@@ -1,4 +1,5 @@
 name: Notify Telegram
+
 on:
   issue_comment:
     types:
@@ -18,7 +19,7 @@ jobs:
  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Test
+      - name: tg alert
         uses: georgepstaylor/telegram-github-notifier@v0.0.1
         with:
           telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
