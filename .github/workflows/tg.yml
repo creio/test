@@ -1,5 +1,4 @@
 name: Notify Telegram
-
 on:
   issue_comment:
     types:
